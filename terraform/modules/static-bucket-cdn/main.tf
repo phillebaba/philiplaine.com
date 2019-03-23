@@ -55,7 +55,6 @@ resource "aws_s3_bucket_policy" "default" {
   policy = "${data.aws_iam_policy_document.s3_policy.json}"
 }
 
-
 # Cloud Front
 resource "aws_cloudfront_origin_access_identity" "default" {
   comment = "${var.domain_name}"
@@ -65,7 +64,7 @@ resource "aws_cloudfront_distribution" "default" {
   enabled             = true
   is_ipv6_enabled     = false
   default_root_object = "${var.index_document}"
-  price_class = "PriceClass_100"
+  price_class         = "PriceClass_100"
 
   origin {
     domain_name = "${aws_s3_bucket.default.bucket_regional_domain_name}"
@@ -105,8 +104,8 @@ resource "aws_cloudfront_distribution" "default" {
   }
 
   viewer_certificate {
-    acm_certificate_arn = "${var.certificate_arn}"
-    ssl_support_method = "sni-only"
+    acm_certificate_arn      = "${var.certificate_arn}"
+    ssl_support_method       = "sni-only"
     minimum_protocol_version = "TLSv1"
   }
 }
