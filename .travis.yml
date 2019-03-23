@@ -1,7 +1,7 @@
 language: go
 
 install:
-  - go get github.com/gohugoio/hugo
+  - go get --tags extended github.com/gohugoio/hugo
 
 script:
   - cd website
