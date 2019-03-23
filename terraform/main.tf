@@ -14,6 +14,7 @@ module "certificate" {
 module "static_bucket" {
   source = "./modules/static-bucket-cdn"
   domain_name = "www.${var.domain}"
+  aliases = ["www.${var.domain}", "${var.domain}"]
   index_document = "index.html"
   error_document = "404.html"
   certificate_arn = "${module.certificate.certificate_arn}"

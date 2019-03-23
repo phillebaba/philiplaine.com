@@ -76,7 +76,7 @@ resource "aws_cloudfront_distribution" "default" {
     }
   }
 
-  aliases = ["www.${var.domain_name}", "${var.domain_name}"]
+  aliases = "${var.aliases}"
 
   default_cache_behavior {
     allowed_methods  = ["GET", "HEAD"]
