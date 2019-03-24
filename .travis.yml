@@ -1,11 +1,16 @@
-language: go
+dist: xenial
 
-install:
-  - go get --tags extended github.com/gohugoio/hugo
+env:
+  - HUGO_VERSION=0.54.0
+
+before_install:
+  - mkdir -p bin
+  - curl -L https://github.com/gohugoio/hugo/releases/download/v${HUGO_VERSION}/hugo_${HUGO_VERSION}_Linux-64bit.tar.gz -o bin/hugo.tar.gz
+  - tar xzvvf bin/hugo.tar.gz -C ./bin
 
 script:
   - cd website
-  - hugo
+  - ../bin/hugo
 
 deploy:
   skip_cleanup: true
