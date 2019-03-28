@@ -9,9 +9,9 @@ disqusShortname = "phillebaba"
 ## Site Settings
 [params]
     author = "Philip Laine"
-    title = "Title"
-    description = "random thoughts and ideas about infrastructure and software"
-    authorimage = "/img/philip.png"
+    #title = "Title"
+    description = "random thoughts and ideas about infrastructure and code"
+    authorimage = "/images/philip.png"
     dateformat = "Jan 2, 2006"
 
     copyright = "Philip Laine"
