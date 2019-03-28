@@ -3,7 +3,7 @@ module "s3_static_website" {
 
   domain_name = "${var.domain_name}"
   index_document = "index.html"
-  error_document = "error.html"
+  error_document = "404.html"
   routing_rules = <<EOF
   [{
     "Redirect": {
