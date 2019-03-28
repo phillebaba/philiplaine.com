@@ -1,49 +1,24 @@
-module "certificate" {
-  source = "./modules/acm-certificate"
+module "s3_static_website" {
+  source = "github.com/phillebaba/terraform-modules/modules/s3-static-website"
 
-  providers = {
-    "aws.acm"     = "aws.us-east-1"
-    "aws.route53" = "aws"
-  }
-
-  parent_zone_name  = "${var.domain}"
-  domain_name       = "${var.domain}"
-  alternative_names = ["www.${var.domain}"]
+  domain_name = "${var.domain_name}"
+  index_document = "index.html"
+  error_document = "error.html"
+  routing_rules = <<EOF
+  [{
+    "Redirect": {
+      "ReplaceKeyPrefixWith": "index.html"
+    },
+    "Condition": {
+      "KeyPrefixEquals": "/"
+    }
+  }]
+  EOF
 }
 
-module "static_bucket" {
-  source          = "./modules/static-bucket-cdn"
-  domain_name     = "www.${var.domain}"
-  aliases         = ["www.${var.domain}", "${var.domain}"]
-  index_document  = "index.html"
-  error_document  = "404.html"
-  certificate_arn = "${module.certificate.certificate_arn}"
-}
+module "cloudfront_cdn" {
+  source = "github.com/phillebaba/terraform-modules/modules/cloudfront-cdn"
 
-data "aws_route53_zone" "default" {
-  name = "${var.domain}"
-}
-
-resource "aws_route53_record" "www_route53_record" {
-  zone_id = "${data.aws_route53_zone.default.zone_id}"
-  name    = "www.${var.domain}"
-  type    = "A"
-
-  alias {
-    name                   = "${module.static_bucket.cdn_domain_name}"
-    zone_id                = "${module.static_bucket.cdn_hosted_zone_id}"
-    evaluate_target_health = false
-  }
-}
-
-resource "aws_route53_record" "route53_record" {
-  zone_id = "${data.aws_route53_zone.default.zone_id}"
-  name    = "${var.domain}"
-  type    = "A"
-
-  alias {
-    name                   = "www.${var.domain}"
-    zone_id                = "${data.aws_route53_zone.default.zone_id}"
-    evaluate_target_health = false
-  }
+  domain_name = "${var.domain_name}"
+  origin_domain_name = "${module.s3_static_website.s3_website_endpoint}"
 }
