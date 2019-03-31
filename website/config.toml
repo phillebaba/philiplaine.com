@@ -9,7 +9,6 @@ disqusShortname = "phillebaba"
 ## Site Settings
 [params]
     author = "Philip Laine"
-    #title = "Title"
     description = "random thoughts and ideas about infrastructure and code"
     authorimage = "/images/philip.png"
     dateformat = "Jan 2, 2006"
@@ -34,13 +33,8 @@ disqusShortname = "phillebaba"
     weight = 100
     identifier = "posts"
     url = "/posts/"
-#[[menu.main]]
-#    name = "Portfolio"
-#    identifier = "portfolio"
-#    weight = 200
-#    url = "/portfolio/"
 [[menu.main]]
     name = "About"
     identifier = "about"
-    weight = 300
+    weight = 200
     url = "/about/"
