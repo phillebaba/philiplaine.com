@@ -4,8 +4,6 @@ languageCode = "en"
 title = "P.Laine"
 theme = "hyde-hyde"
 
-disqusShortname = "phillebaba"
-
 ## Site Settings
 [params]
     author = "Philip Laine"
