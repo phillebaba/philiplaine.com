@@ -1,8 +1,9 @@
 ## Basic Configuration
 baseurl = "https://www.philiplaine.com/"
 languageCode = "en"
-title = "P.Laine"
+title = "Philip Laine"
 theme = "hyde-hyde"
+enableRobotsTXT = true
 
 ## Site Settings
 [params]
