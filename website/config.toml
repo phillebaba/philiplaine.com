@@ -8,7 +8,7 @@ enableRobotsTXT = true
 ## Site Settings
 [params]
     author = "Philip Laine"
-    description = "random thoughts and ideas about infrastructure and code"
+    description = "random thoughts about software development"
     authorimage = "/images/philip.png"
     dateformat = "Jan 2, 2006"
 
