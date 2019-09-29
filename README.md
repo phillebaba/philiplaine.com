@@ -1,4 +1,4 @@
-# philiplaine.com
+# [philiplaine.com](https://philiplaine.com/)
 This is the infrastructure code and content of my personal website. The setup is very basic and was built with the expectatation that there will be very little traffic. This is the main reasont that the website is hosted in a static S3 bucket, other than it is fun to set up.
 
 ## Infrastructure
