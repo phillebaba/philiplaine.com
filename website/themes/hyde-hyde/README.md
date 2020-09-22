@@ -16,7 +16,7 @@ Since version 2.0, __`hyde-hyde`__ has been overhauled and, therefore, might cau
 * Experimenting a collapsible menu in mobile mode
 * Adding _Table of Contents_
   * Configure using `.Site.Params.toc` with two possible value: "hugo" (using Hugo `{{ .TableOfContents }}`, and "tocbot" (using [Tocbot](https://tscanlin.github.io/tocbot/)), remove `.Site.Params.toc` to disable TOC
-  * Tocbot can be configured in [_layouts/partials/page-single/footer.html_](_layouts/partials/page-single/footer.html_) with options as described in [its documentation](https://tscanlin.github.io/tocbot/#api)
+  * Tocbot can be configured in [layouts/partials/page-single/footer.html](layouts/partials/page-single/footer.html) with options as described in [its documentation](https://tscanlin.github.io/tocbot/#api)
 
 For more details, please refer to [CHANGELOG](https://github.com/htr3n/hyde-hyde/blob/master/CHANGELOG.md).  A real site in action can be found [here](https://htr3n.github.io) and its [WIP source](https://github.com/htr3n/htr3n-blog) for reference.
 
@@ -69,7 +69,7 @@ __`Hyde-hyde`__ essentially inherits most of Hyde's [options](https://github.com
 
 * `GraphCommentId = "your-graphcomment-id"`: to use [GraphComment](https://graphcomment.com) instead of the built-in [Disqus](https://disqus.com). This option should be used exclusively with `disqusShortname = "disqus-shortname"`.
 
-* `UtterancesRepo = "your-repo-name"`: to use [Utterances](https://utteranc.es/) instead of the built-in [Disqus](https://disqus.com). This option should be used exclusively with `disqusShortname = "disqus-shortname"`.
+* `UtterancesRepo = "owner/repo-name"`: to use [Utterances](https://utteranc.es/) instead of the built-in [Disqus](https://disqus.com). This option should be used exclusively with `disqusShortname = "disqus-shortname"`.
   * `UtterancesIssueTerm = "pathname"` Method for Utterances to match issue's to posts (pathname, url, title, og:title)
   * `UtterancesTheme = "github-light"` Theme for Utterances (github-light, github-dark)
 
@@ -158,6 +158,16 @@ Here is a longer summary of the project. You can write as long as you wish.
 > * The body of the Markdown file will be the summary of the project.
 
 If you want to adjust the portfolio page to your needs, please have a look at the [main template](https://github.com/htr3n/hyde-hyde/blob/master/layouts/portfolio/list.html), that uses this [partial template](https://github.com/htr3n/hyde-hyde/blob/master/layouts/partials/portfolio/content.html) and [this SCSS style](https://github.com/htr3n/hyde-hyde/blob/master/assets/scss/hyde-hyde/_project.scss).
+
+### Posts in home page
+By default hugo will show in your home page the most populated section.
+This means that if you have more projects than posts, by default your home page will list your projects instead of your posts.
+If you want to change this behaviour you can change the [mainsections](https://gohugo.io/functions/where/#mainsections).
+For example, for the [exampleSite](https://github.com/htr3n/hyde-hyde/tree/master/exampleSite) this is how you should change the `config.toml` file:
+```
+[params]
+    mainSections = ["posts"]
+```
 
 ## Some Screenshots
 

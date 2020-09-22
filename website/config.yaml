@@ -1,0 +1,29 @@
+baseurl: "https://www.philiplaine.com/"
+languageCode: "en"
+theme: "hyde-hyde"
+title: "Philip Laine"
+
+params:
+  author: "Philip Laine"
+  description: "random thoughts about software development"
+  authorimage: "/images/philip.png"
+  dateformat: "Jan 2, 2006"
+  copyright: "Philip Laine"
+  showBuiltWith: true
+  mainSections:
+    - posts
+  social:
+    github: "phillebaba"
+    stackoverflow: "1322872"
+    linkedin: "philip-laine-7a649882"
+
+menu:
+  main:
+    - name: "Posts"
+      weight: 100
+      identifier: "posts"
+      url: "/posts/"
+    - name: "Portfolio"
+      weight: 200
+      identifier: "portfolio"
+      url: "/portfolio/"
