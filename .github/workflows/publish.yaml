@@ -45,6 +45,11 @@ jobs:
           hugo-version: "0.75.1"
           extended: true
 
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v1
+        with:
+          terraform_version: 0.13.3
+
       - name: Build Hugo
         run: make hugo-build
 
@@ -57,8 +62,8 @@ jobs:
 
       - name: Get parameters
         run: |
-          cd terraform
           make terraform-init
+          cd terraform
           echo "::set-env name=S3_BUCKET_ID::$(terraform output s3_bucket_name)"
           echo "::set-env name=CF_ID::$(terraform output cloudfront_id)"
 
