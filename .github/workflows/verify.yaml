@@ -21,6 +21,9 @@ jobs:
           hugo-version: "0.75.1"
           extended: true
 
+      - name: Build Hugo
+        run: make hugo-build
+
   terraform:
     runs-on: ubuntu-18.04
     steps:
@@ -39,11 +42,15 @@ jobs:
         with:
           terraform_version: 0.13.3
 
-      - name: Build Hugo
-        run: make hugo-build
-
       - name: Lint Terraform
         run: make terraform-lint
+
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: eu-west-1
 
       - name: Plan Terraform
         run: make terraform-plan
