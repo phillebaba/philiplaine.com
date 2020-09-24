@@ -58,6 +58,7 @@ jobs:
       - name: Get parameters
         run: |
           cd terraform
+          make terraform-init
           echo "::set-env name=S3_BUCKET_ID::$(terraform output s3_bucket_name)"
           echo "::set-env name=CF_ID::$(terraform output cloudfront_id)"
 
