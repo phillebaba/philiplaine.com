@@ -64,8 +64,10 @@ jobs:
         run: |
           make terraform-init
           cd terraform
-          echo ::set-env name=S3_BUCKET_ID::$(terraform output s3_bucket_name)
-          echo ::set-env name=CF_ID::$(terraform output cloudfront_id)
+          S3_BUCKET_ID=$(terraform output s3_bucket_name)
+          echo "::set-env name=S3_BUCKET_ID::$S3_BUCKET_ID"
+          CF_ID=$(terraform output cloudfront_id)
+          echo "::set-env name=CF_ID::$CF_ID"
 
       - name: Publish Hugo
         uses: reggionick/s3-deploy@v2
