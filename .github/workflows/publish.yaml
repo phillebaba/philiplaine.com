@@ -65,9 +65,9 @@ jobs:
         uses: reggionick/s3-deploy@v2
         with:
           folder: public
-          bucket: ${{ S3_BUCKET_ID }}
+          bucket: ${{ env.S3_BUCKET_ID }}
           bucket-region: eu-west-1
-          dist-id: ${{ CF_ID }}
+          dist-id: ${{ env.CF_ID }}
           invalidation: /
           delete-removed: true
 
