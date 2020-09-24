@@ -1,19 +1,17 @@
 
-# Created by https://www.gitignore.io/api/hugo
-# Edit at https://www.gitignore.io/?templates=hugo
+# Created by https://www.toptal.com/developers/gitignore/api/hugo
+# Edit at https://www.toptal.com/developers/gitignore?templates=hugo
 
 ### Hugo ###
-# gitginore template for Hugo projects
-# website: https://gohugo.io
-
-# generated files by hugo
+# Generated files by hugo
 /public/
 /resources/_gen/
+hugo_stats.json
 
-# executable may be added to repository
+# Executable may be added to repository
 hugo.exe
 hugo.darwin
 hugo.linux
 
-# End of https://www.gitignore.io/api/hugo
-
+# End of https://www.toptal.com/developers/gitignore/api/hugo
+n

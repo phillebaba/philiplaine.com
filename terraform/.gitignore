@@ -1,6 +1,6 @@
 
-# Created by https://www.gitignore.io/api/terraform
-# Edit at https://www.gitignore.io/?templates=terraform
+# Created by https://www.toptal.com/developers/gitignore/api/terraform
+# Edit at https://www.toptal.com/developers/gitignore?templates=terraform
 
 ### Terraform ###
 # Local .terraform directories
@@ -32,5 +32,5 @@ override.tf.json
 # Include tfplan files to ignore the plan output of command: terraform plan -out=tfplan
 # example: *tfplan*
 
-# End of https://www.gitignore.io/api/terraform
-
+# End of https://www.toptal.com/developers/gitignore/api/terraform
+n
