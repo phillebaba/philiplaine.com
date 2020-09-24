@@ -7,7 +7,7 @@ on: push
 #    - master
 
 jobs:
-  deploy:
+  hugo:
     runs-on: ubuntu-18.04
     steps:
       - uses: actions/checkout@v2
@@ -20,6 +20,14 @@ jobs:
         with:
           hugo-version: "0.75.1"
           extended: true
+
+  terraform:
+    runs-on: ubuntu-18.04
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          submodules: true
+          fetch-depth: 0
 
       - uses: lablabs/setup-tflint@v1
         name: Setup TFLint
