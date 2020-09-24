@@ -21,7 +21,6 @@ terraform-init:
 
 terraform-plan: terraform-init
 	@cd terraform
-	export TF_LOG=debug
 	terraform plan
 
 AUTO = false
