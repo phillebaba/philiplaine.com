@@ -1,8 +1,29 @@
 .ONESHELL:
 SHELL = /bin/bash
 
-server:
+lint:
+
+
+hugo-server:
 	hugo server -s website
 
-build:
+hugo-build:
 	hugo --minify -s website
+
+terraform-lint:
+	@cd terraform
+	terraform fmt
+	tflint
+
+terraform-init:
+	@cd terraform
+	@[[ -d .terraform ]] || terraform init
+
+terraform-plan: terraform-init
+	@cd terraform
+	terraform plan
+
+AUTO = false
+terraform-apply: terraform-init
+	@cd terraform
+	terraform apply -auto-approve=$(AUTO)

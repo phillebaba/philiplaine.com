@@ -21,5 +21,16 @@ jobs:
           hugo-version: "0.75.1"
           extended: true
 
-      - name: Build
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v1
+        with:
+          terraform_version: 0.13.3
+
+      - name: Build Hugo
         run: make build
+
+      - name: Lint Terraform
+        run: make terraform-lint
+
+      - name: Plan Terraform
+        run: make terraform-plan
