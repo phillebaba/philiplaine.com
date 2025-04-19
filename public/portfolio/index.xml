@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Portfolio on Philip Laine</title>
+    <link>http://localhost:1313/portfolio/</link>
+    <description>Recent content in Portfolio on Philip Laine</description>
+    <generator>Hugo</generator>
+    <language>en-us</language>
+    <lastBuildDate>Mon, 03 Feb 2020 00:00:00 +0000</lastBuildDate>
+    <atom:link href="http://localhost:1313/portfolio/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Kubernetes Generated Secret</title>
+      <link>http://localhost:1313/portfolio/kubernetes-generated-secret/</link>
+      <pubDate>Mon, 03 Feb 2020 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/portfolio/kubernetes-generated-secret/</guid>
+      <description>&lt;p&gt;Simple project to practice building Kuberentes controllers. I tried following best practices when developing the controller like using Kubebuilder to generate the template code and implementing integration tests.&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Laine Cloud</title>
+      <link>http://localhost:1313/portfolio/laine-cloud/</link>
+      <pubDate>Sun, 18 Aug 2019 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/portfolio/laine-cloud/</guid>
+      <description>&lt;p&gt;This is a fun hobby project based around a couple of Raspberry Pi. The goal was to run container based workloads across all of computers. The project has evolved into a Kubernetes cluster with persistent storage and a VPN tunnel to allow for serving of public websites.&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Alfrodull</title>
+      <link>http://localhost:1313/portfolio/alfrodull/</link>
+      <pubDate>Sat, 17 Aug 2019 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/portfolio/alfrodull/</guid>
+      <description>&lt;p&gt;Alfrodull is a utility to easily control LED devices connected to a computer based on predefined events. Everything is configured with a single file, allowing for simple configuration of event type, light color and transition animation in seconds.&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>UCNB</title>
+      <link>http://localhost:1313/portfolio/ucnb/</link>
+      <pubDate>Sun, 10 Mar 2019 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/portfolio/ucnb/</guid>
+      <description>&lt;p&gt;UCNB is a helper application built to extend the Unifi Controller notifications by allowing more output methods other than eMail. In it core this is just an SMTP server with some logic to forward eMails to other resources. This was initially built to forward notifications to IFTTT so that they trigger notifications in a phone, but it is possible to use this project for many other purposes.&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>

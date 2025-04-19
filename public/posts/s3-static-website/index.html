@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="en-us">
+    
+    
+
+
+    <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+    <link href="https://gmpg.org/xfn/11" rel="profile">
+    
+    <link rel="canonical" href="http://localhost:1313/posts/s3-static-website/">
+    
+    <meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<!-- Enable responsiveness on mobile devices -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+<meta name="generator" content="Hugo 0.146.4">
+
+    
+    
+    
+
+<title>Common S3 Static Website Problems • Philip Laine</title>
+
+
+
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Common S3 Static Website Problems">
+  <meta name="twitter:description" content="There are a bunch of blog posts and tutorials out there showing how to setup a static website on AWS. They all offer the same general solution with maybe some caveat. Route53 for DNS, CloudFront as a CDN to speed up content delivery, S3 to store the content, and ACM as a certificate provider. A good place to start off at when embarking on a new project is AWS own reference documentation. AWS static website project is a great example of this, and it will probably do a better job conveying the required information that I ever will. The only thing I think the example lacks is setting up it certificates for CloudFront. That was the source of most of my problems when setting up my static website, the very one you are on right now. There are many Stack Overflow questions and additional blog posts trying to solve these issues, but they are either just partially correct or outdated. That is why I am going to highlight some common issues rather than a tutorial, because a better one already exists.">
+
+<meta property="og:url" content="http://localhost:1313/posts/s3-static-website/">
+  <meta property="og:site_name" content="Philip Laine">
+  <meta property="og:title" content="Common S3 Static Website Problems">
+  <meta property="og:description" content="There are a bunch of blog posts and tutorials out there showing how to setup a static website on AWS. They all offer the same general solution with maybe some caveat. Route53 for DNS, CloudFront as a CDN to speed up content delivery, S3 to store the content, and ACM as a certificate provider. A good place to start off at when embarking on a new project is AWS own reference documentation. AWS static website project is a great example of this, and it will probably do a better job conveying the required information that I ever will. The only thing I think the example lacks is setting up it certificates for CloudFront. That was the source of most of my problems when setting up my static website, the very one you are on right now. There are many Stack Overflow questions and additional blog posts trying to solve these issues, but they are either just partially correct or outdated. That is why I am going to highlight some common issues rather than a tutorial, because a better one already exists.">
+  <meta property="og:locale" content="en_us">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="posts">
+    <meta property="article:published_time" content="2019-03-24T21:44:51+01:00">
+    <meta property="article:modified_time" content="2019-03-24T21:44:51+01:00">
+
+
+    
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.4.0/styles/github.min.css">
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/scss/triple-hyde.ef937e1c8a424ea6419b858ae4cfbdb5f7e764eb1075e9ac50fa2de759dde8a2.css" integrity="sha256-75N&#43;HIpCTqZBm4WK5M&#43;9tffnZOsQdemsUPot51nd6KI=">
+
+
+<link rel="stylesheet" href="/scss/print.2744dcbf8a0b2e74f8a50e4b34e5f441be7cf93cc7de27029121c6a09f9e77bc.css" integrity="sha256-J0Tcv4oLLnT4pQ5LNOX0Qb58&#43;TzH3icCkSHGoJ&#43;ed7w=" media="print">
+
+
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <!-- Icons -->
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/apple-touch-icon-144-precomposed.png">
+    <link rel="shortcut icon" href="/favicon.png">
+    
+    
+
+</head>
+
+
+    <body class=" ">
+    
+<div class="sidebar">
+  <div class="container ">
+    <div class="sidebar-about">
+  <span class="site__title">
+    <a href="http://localhost:1313/">
+    
+      Philip Laine
+    
+    </a>
+  </span>
+  
+    
+    
+    
+    <div class="author-image">
+      <img src="http://localhost:1313/images/philip.png" alt="Author Image" class="img--circle img--headshot element--center">
+    </div>
+    
+  
+  
+  <p class="site__description">
+     random thoughts about software development 
+  </p>
+</div>
+
+    <div class="collapsible-menu">
+      <input type="checkbox" id="menuToggle">
+      <label for="menuToggle">Philip Laine</label>
+      <div class="menu-content">
+        <div>
+	<ul class="sidebar-nav">
+		 
+		 
+			 
+				<li>
+					<a href="/posts/">
+						<span>Posts</span>
+					</a>
+				</li>
+			 
+		 
+			 
+				<li>
+					<a href="/portfolio/">
+						<span>Portfolio</span>
+					</a>
+				</li>
+			 
+		
+	</ul>
+</div>
+
+        <section class="social">
+	
+	
+	
+	<a href="https://github.com/phillebaba" rel="me">
+
+  <span class="relative block icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><path fill="currentColor" d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
+
+  </span>
+
+</a>
+	
+	
+	
+	
+	
+	
+	
+	<a href="https://linkedin.com/in/phillebaba" rel="me">
+
+  <span class="relative block icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path fill="currentColor" d="M416 32H31.9C14.3 32 0 46.5 0 64.3v383.4C0 465.5 14.3 480 31.9 480H416c17.6 0 32-14.5 32-32.3V64.3c0-17.8-14.4-32.3-32-32.3zM135.4 416H69V202.2h66.5V416zm-33.2-243c-21.3 0-38.5-17.3-38.5-38.5S80.9 96 102.2 96c21.2 0 38.5 17.3 38.5 38.5 0 21.3-17.2 38.5-38.5 38.5zm282.1 243h-66.4V312c0-24.8-.5-56.7-34.5-56.7-34.6 0-39.9 27-39.9 54.9V416h-66.4V202.2h63.7v29.2h.9c8.9-16.8 30.6-34.5 62.9-34.5 67.2 0 79.7 44.3 79.7 101.9V416z"/></svg>
+
+  </span>
+
+</a>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+</section>
+
+      </div>
+    </div>
+    
+
+
+  </div>
+</div>
+
+        <div class="content container">
+            
+    
+<article>
+  <header>
+    <h1>Common S3 Static Website Problems</h1>
+    
+    
+<div class="post__meta">
+    
+    
+      <i class="fas fa-calendar-alt"></i> Mar 24, 2019
+    
+    
+    
+    
+    
+    <br/>
+    <i class="fas fa-clock"></i> 6 min read
+</div>
+
+
+  </header>
+  
+  
+  <div class="post">
+    <p>There are a bunch of blog posts and tutorials out there showing how to setup a
+static website on AWS. They all offer the same general solution with maybe some
+caveat. Route53 for DNS, CloudFront as a CDN to speed up content delivery, S3
+to store the content, and ACM as a certificate provider. A good place to start
+off at when embarking on a new project is AWS own reference documentation.
+<a href="https://aws.amazon.com/getting-started/projects/host-static-website/">AWS static website project</a>
+is a great example of this, and it will probably do a better job conveying the
+required information that I ever will. The only thing I think the example lacks
+is setting up it certificates for CloudFront. That was the source of most of my
+problems when setting up my static website, the very one you are on right now.
+There are many Stack Overflow questions and additional blog posts trying to
+solve these issues, but they are either just partially correct or outdated.
+That is why I am going to highlight some common issues rather than a tutorial,
+because a better one already exists.</p>
+<p><strong>How to serve content for both www and non-www?</strong><!-- raw HTML omitted -->
+If you are not to familiar with Route53 or any other you may assume that it
+would be enough to setup a single <code>A</code> record in Route53, point it to CloudFront
+and consider that part done. Sadly it isn&rsquo;t that simple, but the work required
+to get it right isn&rsquo;t enormous either as long as you know what to do. The
+problem is that there are many <a href="https://stackoverflow.com/questions/37000416/need-to-rewrite-non-www-to-www-in-aws-s3-bucket-and-cloudfront">Stack Overflow Questions</a>, with old or outright wrong answers. On top of that we have <a href="http://www.internetkatta.com/hosting/rewrite-non-www-to-www-in-aws-s3-bucket-and-cloudfront/">sites that scrape Stack Overflow</a> that perpetuates the same wrong answer.</p>
+<p>As an example if you create an <code>A</code> record for <code>www.philiplaine.com</code> and point it to your CloudFront distribution.
+Then browse to <code>philiplaine.com</code> you will find that nothing will happen.
+That is because the www record is considered to be a subdomain to the non-www record.
+To solve this simply create another A record for <code>philiplaine.com</code> and point it to <code>www.philiplaine.com</code>.
+Then edit your CloudFront distribution and add both <code>www.philiplaine.com</code> and
+<code>philiplaine.com</code> to the Alternate Domain Names parameter. It may take some
+time for the changes to take effect if the change is made on existing resources
+but eventually the non-www domain will redirect to the www domain. Of course this
+also works the other way around if you prefer to have a non-www domain as the
+primary domain.</p>
+<p><strong>Single certificate for both domains</strong><!-- raw HTML omitted -->
+Now that you have two <code>A</code> records you want to have a valid SSL certificate for
+both domains. If you setup ACM with the domain name <code>www.philiplaine.com</code>
+before creating the second record you will find that your browser will warn
+you that the certificate can&rsquo;t be trusted. That is because it is only
+configured for a single domain. So you will have to create a new certificate
+that has contains both the www and the non-www domain. The reason we are
+creating a new certificate is that ACM does not allow editing of existing
+certificates.</p>
+<p>If you are <a href="https://www.terraform.io/docs/providers/aws/r/acm_certificate.html">setting up the certificate with Terraform</a> the configuration will
+look a bit different as there are two parameters.</p>
+<ul>
+<li>domain_name - (Required) A domain name for which the certificate should be issued</li>
+<li>subject_alternative_names - (Optional) A list of domains that should be SANs in the issued certificate</li>
+</ul>
+<p>I have noticed that there are some inconsistencies with how Terraform solves
+this and what the AWS API expects. If you set the <code>domain_name</code> to be the www
+domain name, and the <code>subject_alternative_names</code> to be a list containing both
+the www and the non-www domain it will always want to recreate the resource
+after creating it. This seems to be because Terraform does not expect that
+input. So when it refreshes its state with the AWS API it will consider all
+domain_names that is not the <code>domain_name</code> to be in the
+<code>subject_alternative_names</code> causing your state to claim that there is a
+difference in the amount of items in the list. I am currently exploring this
+error further so that I can file a bug and fix the issue.</p>
+<p><strong>My S3 bucket routing rules are not working</strong><!-- raw HTML omitted -->
+If you have like me decided to use <a href="gohugo.io">Hugo</a> to build your website you
+may face a problem when you start browsing around your new website that is now
+hosted on AWS. The root page will show up fine but <code>/posts/</code> or any other
+detailed page will return a error. This is because S3 expects all routes to
+reference a file and not a directory, so <code>/posts/index.html</code> would work but the
+links generated by Hugo will not work that way. Keep calm! There is a simple
+solution to this problem that you probably already know about, <a href="https://docs.aws.amazon.com/AmazonS3/latest/dev/how-to-page-redirect.html">S3 Redirection
+Rules</a>.
+So you configure your S3 bucket to add the following redirection rule, that
+will append <code>index.html</code> to any route that does not have any key.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-json" data-lang="json"><span style="display:flex;"><span>[{
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;Redirect&#34;</span>: {
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">&#34;ReplaceKeyPrefixWith&#34;</span>: <span style="color:#e6db74">&#34;index.html&#34;</span>
+</span></span><span style="display:flex;"><span>    },
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;Condition&#34;</span>: {
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">&#34;KeyPrefixEquals&#34;</span>: <span style="color:#e6db74">&#34;/&#34;</span>
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}]
+</span></span></code></pre></div><p>Great! You apply the changes but the problem is still there. There is one
+important detail that may have been overlooked when setting the CloudFront
+origin. Redirection rules will only be applied when browsing to the S3 buckets
+website url and not the api url. It is not always the first thing to check even
+though they look different. The website url has the structure <code>&lt;bucket-name&gt;.s3-website-&lt;AWS-region&gt;.amazonaws.com</code>
+while the api url has the structure <code>http://&lt;bucket-name&gt;.&lt;AWS-region&gt;.amazonaws.com</code>.
+Notice the additional <code>s3-website</code> in the url. One of the requirements to use
+the website url is that the bucket and its content needs to be public, it is
+not possible to restrict access through this method with IAM. AWS has <a href="https://docs.aws.amazon.com/AmazonS3/latest/dev/WebsiteHosting.html">more
+documentation</a>
+with additional details. I am personally a bit confused why this is, as it
+allows access directly to the S3 bucket even if you want to serve the content
+through CloudFront. In comparison if you were to setup a CDN that does not need
+any of the static website features you could make the bucket private and setup
+origin access to limit access to only a specific CloudFront distribution. If
+you have a good explanation of why this is or a good solution to restricting
+direct access, please let me know!</p>
+<p>If you are interested in the Terraform and code that setup this website, with
+the solutions that I have described you can look at two of my repositories on Github.</p>
+<ul>
+<li><a href="https://github.com/phillebaba/philiplaine.com">philiplaine.com</a></li>
+<li><a href="https://github.com/phillebaba/terraform-modules">terraform-modules</a></li>
+</ul>
+<p>For further reading I would recommend looking at <a href="https://medium.com/@brodartec/hosting-a-static-site-with-https-enabled-using-aws-s3-cloudfront-and-godaddy-826dae41fdc6">Benjamin Rodarte&rsquo;s</a> post. I would probably not have face these problems if I followed it from the start, even if it does not include instructions for Route53.</p>
+
+  </div>
+  
+
+<div class="navigation navigation-single">
+    
+    
+    <a href="/posts/ubiquiti-and-vpn-clients/" class="navigation-next">
+      <span class="navigation-tittle">Ubiquiti And VPN Clients</span>
+      <i aria-hidden="true" class="fa fa-chevron-right"></i>
+    </a>
+    
+</div>
+
+
+  
+
+  
+    
+
+
+</article>
+
+
+        </div>
+        
+    
+
+
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.4.0/highlight.min.js"></script>
+        
+    <script type="text/javascript">
+        
+        hljs.initHighlightingOnLoad();
+    </script>
+    
+
+
+
+    
+
+
+
+    </body>
+</html>

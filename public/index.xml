@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Philip Laine</title>
+    <link>http://localhost:1313/</link>
+    <description>Recent content on Philip Laine</description>
+    <generator>Hugo</generator>
+    <language>en-us</language>
+    <lastBuildDate>Mon, 03 Feb 2020 00:00:00 +0000</lastBuildDate>
+    <atom:link href="http://localhost:1313/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Kubernetes Generated Secret</title>
+      <link>http://localhost:1313/portfolio/kubernetes-generated-secret/</link>
+      <pubDate>Mon, 03 Feb 2020 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/portfolio/kubernetes-generated-secret/</guid>
+      <description>&lt;p&gt;Simple project to practice building Kuberentes controllers. I tried following best practices when developing the controller like using Kubebuilder to generate the template code and implementing integration tests.&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Cross Compiling Docker Images</title>
+      <link>http://localhost:1313/posts/cross-compiling-docker-images/</link>
+      <pubDate>Fri, 20 Sep 2019 20:00:00 +0200</pubDate>
+      <guid>http://localhost:1313/posts/cross-compiling-docker-images/</guid>
+      <description>&lt;p&gt;It has been an issue for a long time to run Docker images on multiple architectures. I remember the first time I got the idea to install Docker on my Raspberry Pi and I realized quickly that what I was trying to do would not work. The issue of course was that I was trying to use an AMD64 compiled Docker image on a ARM 32 bit CPU. Anyone who works with any lower level languages would call me an idiot for realizing this sooner than later. I would agree with them. Docker just seems to work like magic, running on most machines without any issue, like running Linux containers on Windows. One thing that has not been easy though is building Docker images on one type of CPU and running them on another.&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Laine Cloud</title>
+      <link>http://localhost:1313/portfolio/laine-cloud/</link>
+      <pubDate>Sun, 18 Aug 2019 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/portfolio/laine-cloud/</guid>
+      <description>&lt;p&gt;This is a fun hobby project based around a couple of Raspberry Pi. The goal was to run container based workloads across all of computers. The project has evolved into a Kubernetes cluster with persistent storage and a VPN tunnel to allow for serving of public websites.&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Alfrodull</title>
+      <link>http://localhost:1313/portfolio/alfrodull/</link>
+      <pubDate>Sat, 17 Aug 2019 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/portfolio/alfrodull/</guid>
+      <description>&lt;p&gt;Alfrodull is a utility to easily control LED devices connected to a computer based on predefined events. Everything is configured with a single file, allowing for simple configuration of event type, light color and transition animation in seconds.&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Ubiquiti And VPN Clients</title>
+      <link>http://localhost:1313/posts/ubiquiti-and-vpn-clients/</link>
+      <pubDate>Thu, 08 Aug 2019 17:40:17 +0200</pubDate>
+      <guid>http://localhost:1313/posts/ubiquiti-and-vpn-clients/</guid>
+      <description>&lt;p&gt;I have for some time wanted to learn about the different VPN services offered by AWS. Having invested some money into a full Unifi setup I thought that it would be a good idea to setup an &lt;a href=&#34;https://docs.aws.amazon.com/vpc/latest/userguide/vpn-connections.html&#34;&gt;AWS Site-to-Site VPN and AWS Client VPN&lt;/a&gt; connection between my lab network and my AWS account. I struggled for some time, messing around with the settings trying to get my &lt;a href=&#34;https://www.ui.com/unifi-routing/usg/&#34;&gt;USG&lt;/a&gt; to connect to the VPN server but it would not work. I probably wasted a couple of days of my free time pulling my hair out not really understanding why it wouldn&amp;rsquo;t connect.&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Common S3 Static Website Problems</title>
+      <link>http://localhost:1313/posts/s3-static-website/</link>
+      <pubDate>Sun, 24 Mar 2019 21:44:51 +0100</pubDate>
+      <guid>http://localhost:1313/posts/s3-static-website/</guid>
+      <description>&lt;p&gt;There are a bunch of blog posts and tutorials out there showing how to setup a&#xA;static website on AWS. They all offer the same general solution with maybe some&#xA;caveat. Route53 for DNS, CloudFront as a CDN to speed up content delivery, S3&#xA;to store the content, and ACM as a certificate provider. A good place to start&#xA;off at when embarking on a new project is AWS own reference documentation.&#xA;&lt;a href=&#34;https://aws.amazon.com/getting-started/projects/host-static-website/&#34;&gt;AWS static website project&lt;/a&gt;&#xA;is a great example of this, and it will probably do a better job conveying the&#xA;required information that I ever will. The only thing I think the example lacks&#xA;is setting up it certificates for CloudFront. That was the source of most of my&#xA;problems when setting up my static website, the very one you are on right now.&#xA;There are many Stack Overflow questions and additional blog posts trying to&#xA;solve these issues, but they are either just partially correct or outdated.&#xA;That is why I am going to highlight some common issues rather than a tutorial,&#xA;because a better one already exists.&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>UCNB</title>
+      <link>http://localhost:1313/portfolio/ucnb/</link>
+      <pubDate>Sun, 10 Mar 2019 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/portfolio/ucnb/</guid>
+      <description>&lt;p&gt;UCNB is a helper application built to extend the Unifi Controller notifications by allowing more output methods other than eMail. In it core this is just an SMTP server with some logic to forward eMails to other resources. This was initially built to forward notifications to IFTTT so that they trigger notifications in a phone, but it is possible to use this project for many other purposes.&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>
