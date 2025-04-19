@@ -1,0 +1,24 @@
+baseURL: "https://philiplaine.com/"
+languageCode: "en-us"
+title: "Philip Laine"
+theme: "triple-hyde"
+enableRobotsTXT: true
+params:
+  author: "Philip Laine"
+  authorimage: /images/philip.png
+  description: "random thoughts about software development"
+  highlightjs: true
+  highlightjsstyle: "github"
+  mainSection:
+    - posts
+  social:
+    github: phillebaba
+    linkedin: phillebaba
+menus:
+  main:
+    - name: Posts
+      url: /posts/
+      weight: 100
+    - name: Portfolio
+      url: /portfolio/
+      weight: 200

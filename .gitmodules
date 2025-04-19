@@ -1,0 +1,3 @@
+[submodule "website/themes/triple-hyde"]
+	path = website/themes/triple-hyde
+	url = https://github.com/derme302/triple-hyde.git
