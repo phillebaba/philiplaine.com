@@ -14,6 +14,7 @@ params:
   social:
     github: phillebaba
     linkedin: phillebaba
+    email: philip.laine@gmail.com
 menus:
   main:
     - name: Posts
