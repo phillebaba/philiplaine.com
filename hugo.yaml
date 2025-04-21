@@ -22,3 +22,7 @@ menus:
     - name: Portfolio
       url: /portfolio/
       weight: 200
+markup:
+  goldmark:
+    renderer:
+      unsafe: true
